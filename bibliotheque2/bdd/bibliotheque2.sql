@@ -20,6 +20,12 @@ CREATE TABLE IF NOT EXISTS livres (
     annee_publication INT,             
     FOREIGN KEY (id_auteur) REFERENCES auteurs(id) ON DELETE CASCADE
 );
+CREATE TABLE IF NOT EXISTS users (
+    id int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    username varchar(100) NOT NULL,
+    email varchar(100) NOT NULL,
+    password varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 INSERT INTO livres (titre, genre, id_auteur, annee_publication)
 VALUES ('L\'Étranger', 'Philosophique', 1, 1942);

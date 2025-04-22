@@ -17,6 +17,13 @@ $statement = $pdo->query("
 ");
 $livres = $statement->fetchAll(PDO::FETCH_ASSOC);
 
+session_start();
+
+if(!isset($_SESSION["username"])){
+  header("Location: login.php");
+  exit(); 
+}
+
 ?>
 
 <h1>📚 Livres et auteurs</h1> |
@@ -52,7 +59,6 @@ $livres = $statement->fetchAll(PDO::FETCH_ASSOC);
 </table>
 
 <script>
-    // Fonction pour valider le formulaire avant soumission
     function validateLivreForm() {
         const titre = document.querySelector('input[name="titre"]').value.trim();
         const genre = document.querySelector('input[name="genre"]').value.trim();
@@ -71,7 +77,6 @@ $livres = $statement->fetchAll(PDO::FETCH_ASSOC);
         return true;
     }
 
-    // Fonction de tri dynamique des colonnes du tableau
     document.addEventListener('DOMContentLoaded', function () {
         const headers = document.querySelectorAll("table th");
         headers.forEach((header, index) => {
@@ -140,3 +145,18 @@ $livres = $statement->fetchAll(PDO::FETCH_ASSOC);
         background-color: #f39c12;
     }
 </style>
+
+<!DOCTYPE html>
+<html>
+  <head>
+  <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="sucess">
+    <h1>Bienvenue <?php echo $_SESSION['username']; ?>!</h1>
+    <p>C'est votre tableau de bord.</p>
+    <a href="logout.php">Déconnexion</a>
+    </div>
+  </body>
+</html>
+ 

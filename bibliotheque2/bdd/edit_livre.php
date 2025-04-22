@@ -10,7 +10,6 @@ if (!isset($_GET['id'])) {
 
 $id_livre = $_GET['id'];
 
-// Récupérer les infos du livre
 $stmt = $pdo->prepare("SELECT * FROM livres WHERE id = ?");
 $stmt->execute([$id_livre]);
 $livre = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -19,17 +18,14 @@ if (!$livre) {
     die("Livre introuvable.");
 }
 
-// Récupérer les auteurs
 $statement = $pdo->query("SELECT * FROM auteurs");
 $auteurs = $statement->fetchAll(PDO::FETCH_ASSOC);
 
-// Traitement du formulaire
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $titre = trim($_POST["titre"]);
     $genre = trim($_POST["genre"]);
     $id_auteur = trim($_POST["id_auteur"]);
 
-    // Validation basique
     if (empty($titre) || empty($genre) || empty($id_auteur)) {
         $message = "Tous les champs sont obligatoires.";
     } elseif (!is_numeric($id_auteur)) {
